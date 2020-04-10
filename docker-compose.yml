@@ -1,0 +1,48 @@
+version: '3.7'
+services:
+  db:
+    image: postgres:latest
+    ports:
+      - 5432:5432
+    environment:
+      POSTGRES_USER: ${DATABASE_USER}
+      POSTGRES_PASSWORD: ${DATABASE_PASSWORD}
+      POSTGRES_DB: ${DATABASE_NAME}
+    volumes:
+      - db:/var/lib/postgresql/data
+
+  api:
+    image: gutenberg-org/api
+    build: ./api
+    ports:
+      - 8000:8000
+    command: ./manage.py runserver 0.0.0.0:8000
+    volumes:
+      - ./api/books:/var/www/app/books
+      - ./api/server:/var/www/app/server
+      - ./api/static:/var/www/app/static
+    env_file:
+      - .env
+    depends_on:
+      - db
+    links:
+      - db
+
+  app:
+    image: gutenberg-org/app
+    build: .
+    command: npm start
+    environment:
+      - REACT_APP_API_DOMAIN=http://localhost:8000/
+      - REACT_APP_GA_TRACKING_ID=UA-161511207-1
+    volumes:
+      - ./app/bin:/app/bin
+      - ./app/src:/app/src
+      - ./app/public:/app/public
+      - ./app/package.json:/app/package.json
+      - ./app/tsconfig.json:/app/tsconfig.json
+    ports:
+      - 3000:3000
+
+volumes:
+  db:

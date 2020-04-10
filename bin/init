@@ -1,0 +1,27 @@
+#!/bin/bash
+# checks out dependent scylla modules for dev environments
+
+# cd to the project root
+cd "`dirname "$0"`"/..
+
+set -e
+
+# declare an array of repositories to clone down. Format is: [local path]|[repository url]
+declare -a repos=(
+  "api|git@gitlab.com:gutenberg-org/api.git"
+  "app|git@gitlab.com:gutenberg-org/app.git"
+)
+
+for repo in "${repos[@]}"; do
+  path=$(echo $repo | cut -f1 -d"|")
+  repo=$(echo $repo | cut -f2 -d"|")
+
+  if [ -d "$path" ]; then
+    echo "Updating $path"
+    git -C $path pull
+  else
+    echo "Cloning $repo"
+    git clone $repo $path
+  fi
+  echo
+done
