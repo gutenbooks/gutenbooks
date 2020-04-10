@@ -8,8 +8,8 @@ set -e
 
 # declare an array of repositories to clone down. Format is: [local path]|[repository url]
 declare -a repos=(
-  "api|git@gitlab.com:gutenberg-org/api.git"
-  "app|git@gitlab.com:gutenberg-org/app.git"
+  "api|git@gitlab.com:gutenbooks/api.git"
+  "app|git@gitlab.com:gutenbooks/app.git"
 )
 
 for repo in "${repos[@]}"; do

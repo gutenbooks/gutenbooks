@@ -1,13 +1,14 @@
-# gutenberg-org
+# gutenbooks
 
-This project is a "monorepo" wrapper for the entire `gutenberg-org` stack. It's intent is to enable easy fullstack development on the entire project.
+This project is a "monorepo" wrapper for the entire `gutenbooks` stack. It's intent is to enable easy fullstack development on the entire project.
 
 ## Setup/Usage
 
 ```
-git clone git@gitlab.com:gutenberg-org/gutenberg-org.git
-cd gutenberg-org
+git clone git@gitlab.com:gutenbooks/gutenbooks.git
+cd gutenbooks
 ./bin/init
+cp .env.default .env
 ```
 
 Run Migrations
