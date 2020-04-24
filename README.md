@@ -11,27 +11,24 @@ cd gutenbooks
 cp .env.default .env
 ```
 
-Run Migrations
-
-```
-docker-compose run api python ./manage.py migrate
-```
-
-Seed the DB
-
-```
-docker-compose run api python ./manage.py updatecatalog
-```
-
-```
-docker-compose run api python ./manage.py collectstatic
-```
-
-Then finally
+#### Spin Up Containers & DB
 
 ```
 docker-compose up
 ```
+
+#### Run Migrations
+
+```
+docker-compose exec api npm run typeorm -- migration:run
+```
+
+####  Seed DB
+
+```
+docker-compose exec api npm run console -- seed all
+```
+
 
 Once the project has spun up, the following services will be available:
 

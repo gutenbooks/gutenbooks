@@ -1,28 +1,30 @@
 version: '3.7'
 services:
   db:
-    image: postgres:latest
+    image: mariadb:10.3
     ports:
-      - 5432:5432
-    environment:
-      POSTGRES_USER: ${DATABASE_USER}
-      POSTGRES_PASSWORD: ${DATABASE_PASSWORD}
-      POSTGRES_DB: ${DATABASE_NAME}
+      - 3306:3306
+    env_file:
+      - .env
     volumes:
-      - db:/var/lib/postgresql/data
+      - db:/var/lib/mysql
 
   api:
     image: gutenbooks/api
     build: ./api
     ports:
-      - 8000:8000
-    command: ./manage.py runserver 0.0.0.0:8000
+      - 8000:3000
+    command: npm run start:dev
     volumes:
-      - ./api/books:/var/www/app/books
-      - ./api/server:/var/www/app/server
-      - ./api/static:/var/www/app/static
+      - ./api/src:/app/src
+      - ./api/ormconfig.js:/app/ormconfig.js
+      - ./api/package.json:/app/package.json
+      - ./api/test:/app/test
     env_file:
       - .env
+    environment:
+      NODE_ENV: development
+      LOG_LEVEL: debug
     depends_on:
       - db
     links:
