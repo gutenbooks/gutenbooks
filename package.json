@@ -1,0 +1,28 @@
+{
+  "name": "gutenbooks",
+  "version": "0.0.0",
+  "description": "Monorepo wrapper for the Gutenbooks stack",
+  "main": "index.js",
+  "scripts": {
+    "version": "npm run changelog && git add CHANGELOG.md",
+    "postversion": "git push && git push --tags",
+    "changelog": "conventional-changelog -p angular -i CHANGELOG.md -s -r 0"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+ssh://git@gitlab.com/gutenbooks/gutenbooks.git"
+  },
+  "keywords": [
+    "gutenbooks",
+    "gutenberg"
+  ],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://gitlab.com/gutenbooks/gutenbooks/issues"
+  },
+  "homepage": "https://gitlab.com/gutenbooks/gutenbooks#readme",
+  "devDependencies": {
+    "conventional-changelog-cli": "^2.0.34"
+  }
+}
